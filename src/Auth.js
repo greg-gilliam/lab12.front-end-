@@ -3,14 +3,14 @@ import React, { Component } from 'react';
  class Auth extends Component {
      state = { email: '', password: '' };
      getType = () => {
-         return this.props.type === 'signin' ? 'Sign In' : 'Sign Up';
+         return this.props.type === 'signIn' ? 'Sign In' : 'Sign Up';
      };
      render() {
          return (
              <>
                  <h1>{this.getType()}</h1>
                  <form>
-                     <div class="form-control">
+                     <div className="form-control">
                          <label>Email: </label>
                          <input
                              type="email"
@@ -19,7 +19,7 @@ import React, { Component } from 'react';
                              }
                          />
                      </div>
-                     <div class="form-control">
+                     <div className="form-control">
                          <label>Password: </label>
                          <input
                              type="password"

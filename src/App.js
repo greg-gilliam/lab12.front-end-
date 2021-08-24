@@ -1,6 +1,5 @@
 import { Component } from 'react';
  import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 import Auth from './Auth.js';
 
@@ -25,12 +24,18 @@ class App extends Component {
       <section className="main">
           <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/signIn">
-                  <Auth type="signIn" />
-              </Route>
-              <Route path="/signUp">
-                  <Auth type="signUp" />
-              </Route>
+              <Route 
+                path="/signIn"
+                render={(routerProps) => (
+                <Auth type="signIn" {...routerProps} />
+              )}
+              />
+              <Route 
+                path="/signUp"
+                render={(routerProps) => (
+                <Auth type="signUp" {...routerProps}/>
+                )}
+                />
           </Switch>
       </section>
   </BrowserRouter>

@@ -7,7 +7,7 @@ class signUp extends Component {
             <section className="sign-up">
                 <form className="sign-up-form">
                     <h2>
-                        <link key={`/sign-up`} to={`/sign-up`}>Sign Up</link>
+                        <link key={`/signUp`} to={`/signUp`}>Sign Up</link>
                     </h2>
                 </form>
             </section>
