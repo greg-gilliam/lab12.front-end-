@@ -37,7 +37,7 @@ class App extends Component {
                 render={(routerProps) => (
                 <Auth 
                 setToken={this.setToken}
-                type="signIn" {...routerProps} />
+                type="signin" {...routerProps} />
               )}
               />
               <Route 
@@ -45,7 +45,7 @@ class App extends Component {
                 render={(routerProps) => (
                 <Auth 
                 setToken={this.setToken}
-                type="signUp" {...routerProps}/>
+                type="signup" {...routerProps}/>
                 )}
                 />
                 <Route

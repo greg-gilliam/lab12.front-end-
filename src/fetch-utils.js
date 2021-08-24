@@ -1,4 +1,4 @@
-const URL = 'http://localhost:3001';
+const URL = 'http://localhost:7890';
 
 export async function getToken(loginInfo, type) {
     const authURL = `${URL}/auth/${type}`;
