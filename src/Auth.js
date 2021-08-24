@@ -9,14 +9,14 @@ import { getToken } from './fetch-utils.js';
      handleSubmit = async (e) => {
          e.preventDefault();
         
-         const userData = await getToken(
+         const token = await getToken(
              {
                  email: this.state.email,
                  password: this.state.password,
              },
              this.props.type
          );
-         this.props.setLoggedIn(true);
+         this.props.setToken(token);
          this.props.history.push('/toDos');
      };
      render() {

@@ -11,10 +11,13 @@ class Home extends Component {
 }
 
 class App extends Component {
-  state = { loggedIn: false, };
-  setLoggedIn = (val) => {
-    this.setState({ loggedIn: val });
+  state = { 
+    token: localStorage.getItem('TOKEN'),
+   };
+  setToken = (val) => {
+    this.setState({ token: val });
   };
+
   render() { 
     return ( 
       <BrowserRouter>
@@ -24,7 +27,7 @@ class App extends Component {
           </NavLink>
           <NavLink to="/signIn">Sign In</NavLink>
           <NavLink to="/signUp">Sign Up</NavLink>
-          <div>APP LOGGED IN STATE: {this.state.loggedIn.toString()}</div>
+          <div>APP TOKEN: {this.state.token && this.state.token.toString()}</div>
       </header>
       <section className="main">
           <Switch>
@@ -33,19 +36,21 @@ class App extends Component {
                 path="/signIn"
                 render={(routerProps) => (
                 <Auth 
-                setLoggedIn={this.setLoggedIn}
+                setToken={this.setToken}
                 type="signIn" {...routerProps} />
               )}
               />
               <Route 
                 path="/signUp"
                 render={(routerProps) => (
-                <Auth type="signUp" {...routerProps}/>
+                <Auth 
+                setToken={this.setToken}
+                type="signUp" {...routerProps}/>
                 )}
                 />
                 <Route
                   path="/toDos"
-                  render={(routerProps) => this.state.loggedIn ? (
+                  render={(routerProps) => this.state.token ? (
                     <toDos {...routerProps} />
                   ) : (
                     <Redirect to="/signIn" />
