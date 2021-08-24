@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
+import { getToken } from './fetch-utils.js';
 
  class Auth extends Component {
      state = { email: '', password: '' };
      getType = () => {
          return this.props.type === 'signIn' ? 'Sign In' : 'Sign Up';
      };
+     handleSubmit = async (e) => {
+         e.preventDefault();
+        
+         const userData = await getToken(
+             {
+                 email: this.state.email,
+                 password: this.state.password,
+             },
+             this.props.type
+         );
+         this.props.setLoggedIn(true);
+         this.props.history.push('/toDos');
+     };
      render() {
          return (
              <>
                  <h1>{this.getType()}</h1>
-                 <form>
+                 <form onSubmit={this.handleSubmit}>
                      <div className="form-control">
                          <label>Email: </label>
                          <input

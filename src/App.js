@@ -1,7 +1,8 @@
 import { Component } from 'react';
- import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+ import { BrowserRouter, Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import './App.css';
 import Auth from './Auth.js';
+import toDos from './toDos.js';
 
 class Home extends Component {
   render() { 
@@ -10,7 +11,10 @@ class Home extends Component {
 }
 
 class App extends Component {
-  state = {  }
+  state = { loggedIn: false, };
+  setLoggedIn = (val) => {
+    this.setState({ loggedIn: val });
+  };
   render() { 
     return ( 
       <BrowserRouter>
@@ -20,6 +24,7 @@ class App extends Component {
           </NavLink>
           <NavLink to="/signIn">Sign In</NavLink>
           <NavLink to="/signUp">Sign Up</NavLink>
+          <div>APP LOGGED IN STATE: {this.state.loggedIn.toString()}</div>
       </header>
       <section className="main">
           <Switch>
@@ -27,7 +32,9 @@ class App extends Component {
               <Route 
                 path="/signIn"
                 render={(routerProps) => (
-                <Auth type="signIn" {...routerProps} />
+                <Auth 
+                setLoggedIn={this.setLoggedIn}
+                type="signIn" {...routerProps} />
               )}
               />
               <Route 
@@ -36,6 +43,14 @@ class App extends Component {
                 <Auth type="signUp" {...routerProps}/>
                 )}
                 />
+                <Route
+                  path="/toDos"
+                  render={(routerProps) => this.state.loggedIn ? (
+                    <toDos {...routerProps} />
+                  ) : (
+                    <Redirect to="/signIn" />
+                  )}
+                  />
           </Switch>
       </section>
   </BrowserRouter>
