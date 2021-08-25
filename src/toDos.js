@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class toDos extends Component {
+class ToDos extends Component {
     state = {  }
     render() { 
         return ( 
@@ -11,4 +11,4 @@ class toDos extends Component {
     }
 }
  
-export default toDos;
+export default ToDos;

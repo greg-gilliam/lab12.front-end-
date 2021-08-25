@@ -2,7 +2,7 @@ import { Component } from 'react';
  import { BrowserRouter, Switch, Route, NavLink, Redirect } from 'react-router-dom';
 import './App.css';
 import Auth from './Auth.js';
-import toDos from './toDos.js';
+import ToDos from './ToDos.js';
 
 class Home extends Component {
   render() { 
@@ -49,9 +49,9 @@ class App extends Component {
                 )}
                 />
                 <Route
-                  path="/toDos"
+                  path="/ToDos"
                   render={(routerProps) => this.state.token ? (
-                    <toDos {...routerProps} />
+                    <ToDos {...routerProps} />
                   ) : (
                     <Redirect to="/signIn" />
                   )}
