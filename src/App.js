@@ -9,7 +9,7 @@ class Home extends Component {
     return <h1>Home Page</h1>;
   }
 }
-
+class Profile extends Component {}
 class App extends Component {
   state = { 
     token: localStorage.getItem('TOKEN'),
@@ -25,21 +25,28 @@ class App extends Component {
           <NavLink to="/" exact>
               Home
           </NavLink>
-          <NavLink to="/signIn">Sign In</NavLink>
-          <NavLink to="/signUp">Sign Up</NavLink>
+          {this.state.token && (
+            <NavLink to="/ToDos">To Do List</NavLink>
+          )}
+          {!this.state.token && (
+            <>
+            <NavLink to="/SignIn">Sign In</NavLink>
+            <NavLink to="/SignUp">Sign Up</NavLink>
+            </>
+          )}
           <div>APP TOKEN: {this.state.token && this.state.token.toString()}</div>
       </header>
       <section className="main">
           <Switch>
               <Route exact path="/" component={Home} />
               <Route 
-                path="/signIn"
+                path="/users/:userId"
+                component={Profile} />
                 render={(routerProps) => (
                 <Auth 
                 setToken={this.setToken}
                 type="signin" {...routerProps} />
               )}
-              />
               <Route 
                 path="/signUp"
                 render={(routerProps) => (
@@ -51,7 +58,9 @@ class App extends Component {
                 <Route
                   path="/ToDos"
                   render={(routerProps) => this.state.token ? (
-                    <ToDos {...routerProps} />
+                    <ToDos 
+                    token={this.state.token}
+                    {...routerProps} />
                   ) : (
                     <Redirect to="/signIn" />
                   )}
