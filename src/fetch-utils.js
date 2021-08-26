@@ -28,7 +28,7 @@ export async function getTodos(token) {
 };
 
 export async function createTodo(token, todo) {
-    const ToDosURL = `${URL}/api/todos`;
+    const ToDosURL = `${URL}/api/ToDo`;
     const resp = await fetch(ToDosURL, {
         method: 'POST',
         headers: {
@@ -42,7 +42,7 @@ export async function createTodo(token, todo) {
 };
 
 export async function toggleCompleted(token, todo) {
-    const ToDosURL = `${URL}/api/todos`;
+    const ToDosURL = `${URL}/api/ToDo`;
     const resp = await fetch(ToDosURL, {
         method: 'PUT',
         headers: {

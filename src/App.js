@@ -9,7 +9,7 @@ class Home extends Component {
     return <h1>Home Page</h1>;
   }
 }
-class Profile extends Component {}
+// class Profile extends Component {}
 class App extends Component {
   state = { 
     token: localStorage.getItem('TOKEN'),
@@ -27,7 +27,11 @@ class App extends Component {
           </NavLink>
           {this.state.token && (
             <NavLink to="/ToDos">To Do List</NavLink>
-          )}
+            )}
+            <button onClick={() => {
+              localStorage.removeItem('TOKEN');
+              window.location.replace('/');
+            }}>Log Out</button>
           {!this.state.token && (
             <>
             <NavLink to="/SignIn">Sign In</NavLink>
