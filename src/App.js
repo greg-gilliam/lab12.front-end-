@@ -40,13 +40,13 @@ class App extends Component {
           <Switch>
               <Route exact path="/" component={Home} />
               <Route 
-                path="/users/:userId"
-                component={Profile} />
+                path="/signIn"
                 render={(routerProps) => (
                 <Auth 
                 setToken={this.setToken}
                 type="signin" {...routerProps} />
               )}
+              />
               <Route 
                 path="/signUp"
                 render={(routerProps) => (

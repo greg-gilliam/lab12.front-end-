@@ -25,18 +25,32 @@ export async function getTodos(token) {
     });
     const data = await resp.json();
     return data;
-}
+};
 
 export async function createTodo(token, todo) {
     const ToDosURL = `${URL}/api/todos`;
     const resp = await fetch(ToDosURL, {
         method: 'POST',
-        HEADERS: {
+        headers: {
             'Content-Type': 'application/json',
             Authorization: token,
         },
         body: JSON.stringify(todo),
     });
     const data = await resp.json();
-    console.log(data);
-}
+    return data;
+};
+
+export async function toggleCompleted(token, todo) {
+    const ToDosURL = `${URL}/api/todos`;
+    const resp = await fetch(ToDosURL, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token,
+        },
+        body: JSON.stringify(todo),
+    });
+    const data = await resp.json();
+    return data;
+};

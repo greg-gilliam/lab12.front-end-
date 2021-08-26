@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createTodo, getTodos } from './fetch-utils';
+import { createTodo, getTodos, toggleCompleted } from './fetch-utils';
 
 class ToDos extends Component {
     state = { 
@@ -17,13 +17,23 @@ class ToDos extends Component {
 
      handleSubmit = async (e) => {
          e.preventDefault();
-         const data = await createTodo(this/this.props.token, {
+         const data = await createTodo(this.props.token, {
              to_do: this.state.newTodo,
              completed: false,
          });
+         console.log(data);
          this.setState({ newTodo: '' });
          this.fetchTodos();
      }
+
+     handleCompleted = async (todo) => {
+         todo.completed = !todo.completed;
+         const data = await
+         toggleCompleted(this.props.token, todo);
+         this.fetchTodos();
+         console.log(data);
+     };
+
     render() { 
         return ( 
             <>
@@ -31,7 +41,8 @@ class ToDos extends Component {
             <section className="todo-list">
                 {this.state.ToDos.map((todo) => (
                     <div className="todo-item" key={todo.id}>
-                        <input type="checkbox" checked={todo.completed}></input>
+                        <input type="checkbox" checked={todo.completed} 
+                        onChange={() => this.handleCompleted(todo)}></input>
                         <label>{todo.to_do}</label>
                     </div>
                 ))}
@@ -48,5 +59,6 @@ class ToDos extends Component {
          );
     }
 }
+
  
 export default ToDos;
