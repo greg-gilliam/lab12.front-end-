@@ -20,7 +20,7 @@ export async function getTodos(token) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            'Authorization': token,
         },
     });
     const data = await resp.json();
@@ -33,21 +33,22 @@ export async function createTodo(token, todo) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            'Authorization': token,
         },
         body: JSON.stringify(todo),
     });
     const data = await resp.json();
+    console.log(todo);
     return data;
 };
 
 export async function toggleCompleted(token, todo) {
-    const ToDosURL = `${URL}/api/ToDo`;
+    const ToDosURL = `${URL}/api/ToDo/${todo.id}`;
     const resp = await fetch(ToDosURL, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            'Authorization': token,
         },
         body: JSON.stringify(todo),
     });
