@@ -1,28 +1,49 @@
 import React, { Component } from 'react';
-import { getTodos } from './fetch-utils';
+import { createTodo, getTodos } from './fetch-utils';
 
 class ToDos extends Component {
     state = { 
         ToDos: [],
+        newTodo: '',
      };
 
-     componentDidMount = async () => {
+     componentDidMount = () => {
+         this.fetchTodos();
+     };
+     fetchTodos = async () => {
          const data = await getTodos(this.props.token);
-         console.log(data);
          this.setState({ ToDos: data });
      };
+
+     handleSubmit = async (e) => {
+         e.preventDefault();
+         const data = await createTodo(this/this.props.token, {
+             to_do: this.state.newTodo,
+             completed: false,
+         });
+         this.setState({ newTodo: '' });
+         this.fetchTodos();
+     }
     render() { 
         return ( 
             <>
             <h1>My to do list</h1>
-            {this.state.ToDos.map((ToDo) => (
-                <div className="todo-item" key={ToDo.id}>
-                <label >
-                <input type="checkbox" checked={ToDo.completed}></input>
-                {ToDo.to_do}
-                </label>
-                </div>
-            ))}
+            <section className="todo-list">
+                {this.state.ToDos.map((todo) => (
+                    <div className="todo-item" key={todo.id}>
+                        <input type="checkbox" checked={todo.completed}></input>
+                        <label>{todo.to_do}</label>
+                    </div>
+                ))}
+            </section>
+            <section className="new-todo">
+                <form onSubmit={this.handleSubmit}>
+                    <input value={this.state.newTodo} 
+                    type="text"
+                    onChange={(e) => this.setState({ newTodo: e.target.value })}/>
+                    <button>Add New ToDo</button>
+                </form>
+            </section>
             </>
          );
     }
